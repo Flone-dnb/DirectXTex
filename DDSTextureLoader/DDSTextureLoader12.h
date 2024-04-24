@@ -77,6 +77,12 @@ namespace DirectX
 #endif
 #endif
 
+    HRESULT __cdecl GetDDSTextureInfoFromFile(
+        _In_z_ const wchar_t* fileName,
+        _Out_opt_ uint32_t& width,
+        _Out_opt_ uint32_t& height,
+        _Out_opt_ uint32_t& mipMapCount);
+
     // Standard version
     HRESULT __cdecl LoadDDSTextureFromMemory(
         _In_ ID3D12Device* d3dDevice,

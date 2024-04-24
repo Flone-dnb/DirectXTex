@@ -1662,6 +1662,36 @@ namespace
 
 //--------------------------------------------------------------------------------------
 _Use_decl_annotations_
+HRESULT DirectX::GetDDSTextureInfoFromFile(
+    const wchar_t* fileName,
+    uint32_t& width,
+    uint32_t& height,
+    uint32_t& mipMapCount)
+{
+    std::unique_ptr<uint8_t[]> ddsData;
+    const DDS_HEADER* header = nullptr;
+    const uint8_t* bitData = nullptr;
+    size_t bitSize = 0;
+
+    HRESULT hr = LoadTextureDataFromFile(fileName,
+        ddsData,
+        &header,
+        &bitData,
+        &bitSize
+    );
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    width = header->width;
+    height = header->height;
+    mipMapCount = header->mipMapCount;
+
+    return S_OK;
+}
+
+_Use_decl_annotations_
 HRESULT DirectX::LoadDDSTextureFromMemory(
     ID3D12Device* d3dDevice,
     const uint8_t* ddsData,
